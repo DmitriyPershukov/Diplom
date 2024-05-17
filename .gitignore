@@ -2,3 +2,4 @@ config.ini
 .idea
 *.pyc
 _pycache_
+venv
