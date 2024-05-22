@@ -8,7 +8,7 @@ from AlternatingLeastSquaresDataPreprocessing import preprocess_data
 from implicit.als import AlternatingLeastSquares
 
 def train_als_model(model_path):
-    user_items_csr, customers_id, products = preprocess_data()
+    user_items_csr, customers, products = preprocess_data()
     config = configparser.ConfigParser()
     configpath = os.path.join(os.path.dirname(__file__), '../config.ini')
     config.read(configpath)
@@ -19,7 +19,7 @@ def train_als_model(model_path):
     model.fit(user_items_csr)
 
     model.save(model_path + '/model')
-    pickle.dump(customers_id, open(model_path + '/customers.pkl', 'wb'))
+    pickle.dump(customers, open(model_path + '/customers.pkl', 'wb'))
     pickle.dump(products, open(model_path + '/products.pkl', 'wb'))
     pickle.dump(user_items_csr, open(model_path + '/user_items_csr.pkl', 'wb'))
 

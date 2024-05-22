@@ -51,6 +51,5 @@ class ALSEvaluation:
 
 if __name__ == '__main__':
     model_eval = ALSEvaluation()
-    model_eval.test_model([45], [0.05], [3000])
+    model_eval.test_model([45], [0.1], [3000])
     model_eval.print_results()
-
