@@ -16,4 +16,10 @@ if st.button("Получить рекомедации"):
     dataframe = pandas.DataFrame(dataframe_data)
     dataframe = dataframe[dataframe["Оценка Рекомендации"] > 0.00001]
 
+    max_score = None
+    for index, row in dataframe.iterrows():
+        if max_score is None:
+            max_score = row["Оценка Рекомендации"]
+        dataframe.at[index, "Оценка Рекомендации"] = 100 / (max_score / row["Оценка Рекомендации"])
+
     st.dataframe(dataframe, hide_index= True)
