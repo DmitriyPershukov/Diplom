@@ -13,9 +13,10 @@ def train_als_model(model_path):
     configpath = os.path.join(os.path.dirname(__file__), '../config.ini')
     config.read(configpath)
     threadpoolctl.threadpool_limits(1, "blas")
-    model = AlternatingLeastSquares(factors=int(config.get("als_hyperparameters", "factors")),
-                                    regularization=float(config.get("als_hyperparameters", "regularization")),
-                                    iterations=int(config.get("als_hyperparameters", "iterations")))
+    model = AlternatingLeastSquares(factors= int(config.get("als_hyperparameters", "factors")),
+                                    regularization= float(config.get("als_hyperparameters", "regularization")),
+                                    alpha= float(config.get("als_hyperparameters", "alpha")),
+                                    iterations= int(config.get("als_hyperparameters", "iterations")))
     model.fit(user_items_csr)
 
     model.save(model_path + '/model')

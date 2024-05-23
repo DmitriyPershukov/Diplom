@@ -22,4 +22,4 @@ if st.button("Получить рекомедации"):
             max_score = row["Оценка Рекомендации"]
         dataframe.at[index, "Оценка Рекомендации"] = 100 / (max_score / row["Оценка Рекомендации"])
 
-    st.dataframe(dataframe, hide_index= True)
+    st.dataframe(dataframe.iloc[:7], hide_index= True)
