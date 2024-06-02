@@ -67,7 +67,6 @@ def preprocess_data():
                    'Search', 'Iphone 2', 'Iphone 3', 'Iphone 1', 'v', 'Test',
                    'Iphone1', 'Product 22', 'Product 23', '0', 'Empty',
                    'whatasoft.shop', 'TTMZ', 'd', 'whatasoft.shop update']
-
     users_items = users_items[~users_items['product_name'].isin(debug_names)]
     customer_id = users_items['customer_id'].unique()
     product_id = users_items['product_id'].unique()

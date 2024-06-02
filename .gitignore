@@ -3,3 +3,4 @@ config.ini
 *.pyc
 _pycache_
 venv
+config.ini
