@@ -9,7 +9,7 @@ class ALSRecommender:
 
     def __init__(self, model_path):
         threadpoolctl.threadpool_limits(1, "blas")
-        self.model = self.model = AlternatingLeastSquares.load(model_path + '/model')
+        self.model = AlternatingLeastSquares.load(model_path + '/model')
         self.products = pickle.load(open(model_path + '/products.pkl', 'rb'))
         self.customers = pickle.load(open(model_path + '/customers.pkl', 'rb'))
         self.user_items_csr = pickle.load(open(model_path + '/user_items_csr.pkl', 'rb'))

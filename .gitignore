@@ -4,3 +4,4 @@ config.ini
 _pycache_
 venv
 config.ini
+ALS_Test.py
