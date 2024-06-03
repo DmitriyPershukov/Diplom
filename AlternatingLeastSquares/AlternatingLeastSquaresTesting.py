@@ -13,6 +13,13 @@ class ALSEvaluation:
         self.best_map_score = None
         self.best_ndcg_score = None
 
+    def calculate_p_at_k(self, model, users_items, user_id, K):
+        model.predict(user_id)
+
+    
+    def calculate_map(self, model, users_items):
+        pass
+
     def test_model(self, factors_to_test, regularization_factors_to_test, alphas_to_test, iterations_to_test):
         user_items_csr, _, _ = preprocess_data()
         train_set, test_set = evaluation.train_test_split(user_items_csr)
