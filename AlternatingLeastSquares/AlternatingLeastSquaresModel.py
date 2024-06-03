@@ -27,9 +27,6 @@ class AlternatingLeastSquares:
             Cu = np.diag(confidence[i,:])
             YtCuY = YtY + Y.T.dot(Cu - np.eye(confidence.shape[1])).dot(Y)
             YtCuYplusLambdaI = YtCuY + self.regularization*np.eye(self.factors)
-            a1 = np.linalg.inv(YtCuYplusLambdaI).dot(Y.T).dot(Cu)
-            a2 = preferences[i,:].T
-            a3 = np.linalg.inv(YtCuYplusLambdaI).dot(Y.T).dot(Cu) @ preferences[i,:].T
             newX[i,:] = np.squeeze(np.linalg.inv(YtCuYplusLambdaI).dot(Y.T).dot(Cu) @ preferences[i,:].T)
         return newX
     def fit(self, users_items):
@@ -43,10 +40,10 @@ class AlternatingLeastSquares:
         self.U = U
         self.P = P
 
-    def predict(self, user_id):
+    def predict(self, user_id, K = 7):
         scores = self.U[user_id,:].dot(self.P.T)
         data_payload = {'id':np.arange(self.P.shape[0]).tolist(), 'score': scores.tolist()}
-        return pd.DataFrame(data_payload)
+        return pd.DataFrame(data_payload).sort_values(by='score', ascending=False).head(K)
 
     def save(self, path):
         pickle.dump(self, open(path + '/model.pkl', 'wb'))

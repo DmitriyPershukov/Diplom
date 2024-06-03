@@ -23,15 +23,18 @@ class ALSRecommender:
 
     def recommend(self, customer_database_id):
         customer_model_id = self.get_model_customer_id(customer_database_id)
-        recommendations = self.model.recommend(customer_model_id, self.user_items_csr[customer_model_id,:])
-        return self.vectorized_get_db_product_id(recommendations[0]), recommendations[1]
+        recommendations = self.model.predict(customer_model_id, K = 7)
+        recommendations['id'] = self.vectorized_get_db_product_id(recommendations['id'])
+        return recommendations
 
     def get_recommendations_with_names(self, customer_name):
         customer_database_id = self.get_customer_db_id_by_name(customer_name)
         recommendations = self.recommend(customer_database_id)
-        return self.vectorized_get_product_name(recommendations[0]), recommendations[1]
+        recommendations['product_name'] = self.vectorized_get_product_name(recommendations['id'])
+        recommendations = recommendations.drop('id', axis=1)
+        return recommendations
 
 if __name__ == '__main__':
     model = ALSRecommender('./Model')
-    recs = model.get_recommendations_with_names("Mary Dondero")
+    recs = model.get_recommendations_with_names("Jordan Lahr")
     print(recs)
