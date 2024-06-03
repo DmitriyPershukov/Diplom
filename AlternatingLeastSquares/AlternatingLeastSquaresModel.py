@@ -48,6 +48,9 @@ class AlternatingLeastSquares:
         data_payload = {'id':np.arange(self.P.shape[0]).tolist(), 'score': scores.tolist()[0]}
         return pd.DataFrame(data_payload)
 
+    def save(self, path):
+        pickle.dump(self, open(path + '/model.pkl', 'wb'))
+
 if __name__ == '__main__':
     user_items_csr, customers, products = preprocess_data()
     config = configparser.ConfigParser()
@@ -56,10 +59,12 @@ if __name__ == '__main__':
     model = AlternatingLeastSquares(factors= int(config.get("als_hyperparameters", "factors")),
                                     regularization= float(config.get("als_hyperparameters", "regularization")),
                                     alpha= float(config.get("als_hyperparameters", "alpha")),
-                                    iterations = 3)
-                                    #iterations= int(config.get("als_hyperparameters", "iterations")))
+                                    iterations= int(config.get("als_hyperparameters", "iterations")))
     model.fit(user_items_csr)
-    print(model.predict(0))
+    path = './Model'
+    model.save(path)
+    pickle.dump(customers, open(path + '/customers.pkl', 'wb'))
+    pickle.dump(products, open(path + '/products.pkl', 'wb'))
 
 
 
