@@ -1,18 +1,13 @@
 import numpy as np
 import pickle
-
-import threadpoolctl
-from implicit.cpu.als import AlternatingLeastSquares
-
+from AlternatingLeastSquaresModel import AlternatingLeastSquares
 
 class ALSRecommender:
 
     def __init__(self, model_path):
-        threadpoolctl.threadpool_limits(1, "blas")
-        self.model = self.model = AlternatingLeastSquares.load(model_path + '/model')
+        self.model = AlternatingLeastSquares.load(model_path)
         self.products = pickle.load(open(model_path + '/products.pkl', 'rb'))
         self.customers = pickle.load(open(model_path + '/customers.pkl', 'rb'))
-        self.user_items_csr = pickle.load(open(model_path + '/user_items_csr.pkl', 'rb'))
         self.vectorized_get_db_product_id = np.vectorize(self.get_db_product_id)
         self.vectorized_get_product_name = np.vectorize(self.get_product_name)
     def get_model_product_id(self, database_id):

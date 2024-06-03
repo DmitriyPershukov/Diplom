@@ -45,11 +45,15 @@ class AlternatingLeastSquares:
 
     def predict(self, user_id):
         scores = self.U[user_id,:].dot(self.P.T)
-        data_payload = {'id':np.arange(self.P.shape[0]).tolist(), 'score': scores.tolist()[0]}
+        data_payload = {'id':np.arange(self.P.shape[0]).tolist(), 'score': scores.tolist()}
         return pd.DataFrame(data_payload)
 
     def save(self, path):
         pickle.dump(self, open(path + '/model.pkl', 'wb'))
+
+    @staticmethod
+    def load(path):
+        return pickle.load(open(path + '/model.pkl', 'rb'))
 
 if __name__ == '__main__':
     user_items_csr, customers, products = preprocess_data()
@@ -65,6 +69,5 @@ if __name__ == '__main__':
     model.save(path)
     pickle.dump(customers, open(path + '/customers.pkl', 'wb'))
     pickle.dump(products, open(path + '/products.pkl', 'wb'))
-
 
 
