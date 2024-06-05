@@ -1,7 +1,7 @@
 import configparser
 import os
 import pickle
-from AlternatingLeastSquaresDataPreprocessing import preprocess_data
+from AlternatingLeastSquares.AlternatingLeastSquaresDataPreprocessing import preprocess_data
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
