@@ -20,11 +20,9 @@ class AlternatingLeastSquares:
         if type == 'user':
             confidence = 1 + self.alpha * self.users_items.toarray()
             preferences = (self.users_items > 0).astype(int)
-            #preferences = self.users_items.copy()
         else:
             confidence = (1 + self.alpha * self.users_items.toarray()).T
             preferences = (self.users_items > 0).astype(int).T
-            #preferences = self.users_items.T.copy()
         newX = np.zeros(X.shape)
         for i in range(X.shape[0]):
             Cu = np.diag(confidence[i,:])
@@ -43,11 +41,14 @@ class AlternatingLeastSquares:
         self.U = U
         self.P = P
 
-    def predict(self, user_id, K = 7):
-        bought_items = np.where(np.any(self.users_items, axis=1))[0].T.tolist()
+    def predict(self, user_id, K = 7, filter_out_bought_items = True):
+        bought_items = np.where(self.users_items.toarray()[user_id, :]>0)[0].tolist()
         scores = self.U[user_id,:].dot(self.P.T)
         data_payload = {'id':np.arange(self.P.shape[0]).tolist(), 'score': scores.tolist()}
-        return pd.DataFrame(data_payload).sort_values(by='score', ascending=False).head(K)
+        recommendations = pd.DataFrame(data_payload)
+        if filter_out_bought_items:
+            recommendations = recommendations[~recommendations['id'].isin(bought_items)]
+        return recommendations.sort_values(by='score', ascending=False).head(K)
 
     def save(self, path):
         pickle.dump(self, open(path + '/model.pkl', 'wb'))

@@ -36,5 +36,5 @@ class ALSRecommender:
 
 if __name__ == '__main__':
     model = ALSRecommender('./Model')
-    recs = model.get_recommendations_with_names("Jordan Lahr")
+    recs = model.get_recommendations_with_names("Abbie Vander Muelen")
     print(recs)
