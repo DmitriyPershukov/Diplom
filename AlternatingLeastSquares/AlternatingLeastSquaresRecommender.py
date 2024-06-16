@@ -1,6 +1,6 @@
 import numpy as np
 import pickle
-from AlternatingLeastSquares.AlternatingLeastSquaresModel import AlternatingLeastSquares
+from AlternatingLeastSquaresModel import AlternatingLeastSquares
 
 class ALSRecommender:
 
