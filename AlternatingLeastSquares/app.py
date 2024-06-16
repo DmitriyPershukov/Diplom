@@ -1,11 +1,11 @@
 import pandas
 import streamlit as st
-from AlternatingLeastSquares.AlternatingLeastSquaresRecommender import ALSRecommender
-from AlternatingLeastSquares.AlternatingLeastSquaresModel import AlternatingLeastSquares
+from AlternatingLeastSquaresRecommender import ALSRecommender
+from AlternatingLeastSquaresModel import AlternatingLeastSquares
 
 st.header("Рекомендательная система с использованием машинного обучения")
 
-model = ALSRecommender("./AlternatingLeastSquares/Model")
+model = ALSRecommender("./Model")
 
 user_for_prediction = st.selectbox("Выберите пользователя для рекомендации товаров", model.customers['customer_name'].values)
 
