@@ -4,7 +4,6 @@ import numpy as np
 from scipy.sparse import csr_matrix
 import pandas as pd
 import sqlalchemy
-import cryptography
 
 def preprocess_data():
     config = configparser.ConfigParser()
